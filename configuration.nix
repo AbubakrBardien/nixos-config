@@ -10,7 +10,7 @@
       ./hardware-configuration.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
+  # Use the Grub boot loader.
   boot.loader.systemd-boot.enable = false;
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev"; # "nodev" Tells Grub to install for EFI mode
@@ -26,6 +26,7 @@
       initrd /initramfs-linux.img
     }
   '';
+  boot.supportedFilesystems = [ "ntfs" ]; # Enable kernel support for NTFS
 
 
   boot.loader.efi.canTouchEfiVariables = true;
@@ -53,6 +54,9 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
+  services.dunst.enable = true;
+  services.udisks2.enable = true; # udiskie
+
   # services.displayManager.sddm = {
   #   enable = true;
   #   wayland.enable = false; # runs the login screen on X11
@@ -68,6 +72,9 @@
 
   services.displayManager.gdm.enable = true;
   services.displayManager.defaultSession = "hyprland";
+
+  # Enables the Intel Thermal Daemon service
+  services.thermald.enable = true;
   
 
   # Configure keymap in X11
@@ -95,26 +102,122 @@
     isNormalUser = true;
     description = "Abubakr";
     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
-    shell = pkgs.bash;
+    shell = pkgs.zsh;
     home = "/home/abubakr";
     packages = with pkgs; [
-      tree
+      adapta-gtk-theme
+      arc-theme
+      awww
+      bat-extras.core
+      brave
+      brillo      
+      #carapace # Needed for Nushell for auto-completions
+      catt
+      cava
+      cbonsai
+      cmatrix
+      cowsay
+      deno # check if this is still needed
+      duf
+      dust
+      #exodus # use PWA
+      fastfetch
+      fd
+      ffsubsync # check if this is still needed 
+      figlet
+      ghostty
+      gimp
       git
+      git-filter-repo
+      gotop
+      gping
+      gthumb
+      handlr-regex
+      htop
+      hyperfine
+      hypridle # consider removing if switching away from Hyprland
+      hyprlock # consider removing if switching away from Hyprland
+      hyprshot
+      jp2a
+      kdePackages.breeze-gtk
+      qt6Packages.qtstyleplugin-kvantum
+      #libsForQt5.qtstyleplugin-kvantum
+      ldns # check if this is still needed 
+      lolcat
+      lsd
+      lutris
+      mediainfo
+      mpv
+      nemo
+      networkmanagerapplet
+      noto-fonts-emoji-blob-bin
+      nushell
+      nwg-look
+      obsidian
+      onlyoffice-desktopeditors
+      papirus-icon-theme
+      pavucontrol
+      pcloud
+      piper
+      pipes
+      proton-vpn      
+      protonup-qt
+      qalculate-gtk
+      qbittorrent
+      rofi
+      sbctl
+      serve
+      showmethekey
+      sl
+      starship
+      
+      # Wrap python3 to expose the subliminal CLI binary:
+      (python3.withPackages (ps: [ ps.subliminal ]))
+      
+      surfraw
+      tealdeer
+      thunderbird
+      timg
+      tokei
+      tree      
+      vesktop
+      waybar
+      wlr-randr # Keep if you switch away from hyprland
+      wofi
+      xdg-ninja
     ];
   };
 
-  # programs.firefox.enable = true;
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
   };
 
+  # Allows downloaded binaries to run on NixOS (Needed for Mason)
+  programs.nix-ld.enable = true; 
+
+  programs.steam.enable = true;
+  programs.zsh.enable = true;
+  programs.kdeconnect.enable = true;
+  programs.obs-studio.enable = true;
+
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
+    acpi
+    alsa-utils
+    gcc # or clang (needed for treesitter, and C/C++ user-projects in general)
+    inotify-tools
+    #intel-ucode
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    kitty
+    wget
+    wireplumber
+    stow
   ];
+
+fonts.packages = with pkgs; [
+  corefonts # Times New Roman, Arial, Courier New, etc.
+];
 
 # Enable XDG Portals (Required for Hyprland to launch screens/workspaces properly)
 xdg.portal = {
@@ -138,7 +241,7 @@ environment.sessionVariables = {
   XDG_SESSION_DESKTOP = "Hyprland";
 };
 
-hardware.nvidia.modesetting.enable = true;
+#hardware.nvidia.modesetting.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -157,7 +260,7 @@ hardware.nvidia.modesetting.enable = true;
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
@@ -188,5 +291,32 @@ hardware.nvidia.modesetting.enable = true;
   
   # Hibernattion Settings
   boot.resumeDevice = "/dev/nvme0n1p7";
+
+# 1. Enable Polkit in system configuration
+security.polkit.enable = true;
+
+# 2. Automatically start the GNOME Polkit agent on login
+systemd.user.services.polkit-gnome-authentication-agent-1 = {
+  description = "polkit-gnome-authentication-agent-1";
+  wantedBy = [ "graphical-session.target" ];
+  wants = [ "graphical-session.target" ];
+  after = [ "graphical-session.target" ];
+  serviceConfig = {
+    Type = "simple";
+    ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+    Restart = "on-failure";
+    RestartSec = 1;
+    TimeoutStopSec = 10;
+  };
+};
+
+  # Enable unfree packages (SOF includes redistributable binary blobs)
+  nixpkgs.config.allowUnfree = true;
+  
+  # Install extra hardware firmware (includes sof-firmware)
+  hardware.enableAllFirmware = true;
+  
+  hardware.cpu.intel.updateMicrocode = true;
+
 }
 
