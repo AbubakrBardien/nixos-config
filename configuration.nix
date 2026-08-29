@@ -400,6 +400,7 @@ systemd.user.services.polkit-gnome-authentication-agent-1 = {
   hardware.enableAllFirmware = true;
   
   hardware.cpu.intel.updateMicrocode = true;
+  hardware.brillo.enable = true;
 
 }
 
