@@ -364,11 +364,16 @@ environment.sessionVariables = {
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "26.05"; # Did you read the comment?
   
+  ## Hibernattion Settings
+
   # Swapfile Configuration
-  swapDevices = [ { device = "/swapfile"; } ];
+  swapDevices = [ { 
+	  device = "/swapfile"; 
+      size = 10 * 1024; # Size in MB (10GB = 10240)
+  } ];
   
-  # Hibernattion Settings
   boot.resumeDevice = "/dev/nvme0n1p7";
+  boot.kernelParams = [ "resume_offset=34816" ];
 
 # 1. Enable Polkit in system configuration
 security.polkit.enable = true;
