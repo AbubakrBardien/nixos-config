@@ -251,6 +251,46 @@
     wget
     wireplumber
     stow
+	
+    (makeDesktopItem {
+      name = "cava";
+      desktopName = "Cava";
+      exec = "cava";
+      terminal = true;
+      icon = "ghostty";
+	})
+
+	(makeDesktopItem {
+      name = "cbonsai";
+      desktopName = "CBonsai";
+      exec = "cbonsai -li";
+      terminal = true;
+      icon = "ghostty";
+	})
+
+	(makeDesktopItem {
+      name = "cmatrix";
+      desktopName = "CMatrix";
+      exec = "cmatrix -b";
+      terminal = true;
+      icon = "ghostty";
+	})
+
+	(makeDesktopItem {
+      name = "gotop";
+      desktopName = "GoTop";
+      exec = "gotop";
+      terminal = true;
+      icon = "ghostty";
+	})
+    
+	(makeDesktopItem {
+      name = "pipes";
+      desktopName = "Pipes";
+      exec = "pipes.sh";
+      terminal = true;
+      icon = "ghostty";
+	})
   ];
 
 fonts.packages = with pkgs; [
