@@ -121,6 +121,26 @@
     shell = pkgs.zsh;
     home = "/home/abubakr";
     packages = with pkgs; [
+      ## For Neovim
+      ripgrep # this or similar tool required by telescope.nvim
+
+      # Language Servers
+      lua-language-server # Lua
+      clang-tools # includes clangd and clang-format # C/C++
+      bash-language-server # Bash
+      pyright # Python
+	  
+      # Linters
+	  shellcheck # Bash
+
+      # Formatters
+	  shfmt # Bash
+	  stylua # Lua
+
+      # Debug Adapters
+      (python3.withPackages (ps: [ ps.debugpy ])) # Python
+      vscode-extensions.vadimcn.vscode-lldb.adapter # codelldb # C/C++
+
       adapta-gtk-theme
       arc-theme
       awww
@@ -133,6 +153,7 @@
       cbonsai
       cmatrix
       cowsay
+	  delta
       deno # check if this is still needed
       duf
       dust
@@ -165,6 +186,7 @@
       mediainfo
       mpv
       nemo
+      neovim
       networkmanagerapplet
       noto-fonts-emoji-blob-bin
       nushell
