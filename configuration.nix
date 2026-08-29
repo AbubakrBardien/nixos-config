@@ -308,6 +308,97 @@ xdg.portal = {
 
 # Waylend environment variables (Crucial if you have dual GPUs or NVIDIA)
 environment.sessionVariables = {
+
+  ##########################
+  ## XDG Base Directories ##
+  ##########################
+
+  XDG_CONFIG_HOME = "$HOME/.config";
+  XDG_CACHE_HOME = "$HOME/.cache";
+  XDG_DATA_HOME = "$HOME/.local/share";
+  XDG_STATE_HOME = "$HOME/.local/state";
+
+  #############################################
+  ## Moving Files/Folders based on XDG Specs ##
+  #############################################
+
+## Python Files
+IPYTHONDIR="$XDG_CONFIG_HOME/ipython";
+PYTHON_HISTORY="$XDG_STATE_HOME/python_history";
+
+## Rust Files
+CARGO_HOME="$XDG_DATA_HOME/cargo";
+RUSTUP_HOME="$XDG_DATA_HOME/rustup";
+RUST_TOOLCHAINS="$RUSTUP_HOME/toolchains/stable-x86_64-unknown-linux-gnu/bin";
+
+## Java Files
+GRADLE_USER_HOME="$XDG_DATA_HOME/gradle";
+_JAVA_OPTIONS="-Djavafx.cachedir=$XDG_CACHE_HOME/openjfx -Dswt.library.path=$XDG_CACHE_HOME/swt";
+
+## .NET Core Files
+DOTNET_CLI_HOME="$XDG_DATA_HOME/dotnet";
+NUGET_PACKAGES="$XDG_CACHE_HOME/NuGetPackages";
+
+## Other Files
+HISTFILE="$XDG_DATA_HOME/zsh/history";
+CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv";
+GOPATH="$XDG_DATA_HOME/go";
+JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter";
+NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc";
+PARALLEL_HOME="$XDG_CONFIG_HOME/parallel";
+PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass";
+W3M_DIR="$XDG_STATE_HOME/w3m";
+GNUPGHOME="$XDG_DATA_HOME/gnupg";
+STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml";
+CAROOT="$XDG_DATA_HOME/certs";
+LINKS_CFG_ANON="$XDG_CONFIG_HOME/links";
+
+####################################
+## My Other Environment Variables ##
+####################################
+
+SCRIPTS="$XDG_DATA_HOME/my_scripts";
+
+## Default CLI Programs
+EDITOR="nvim";
+#export AUR_HELPER="paru"
+
+
+###########
+## Other ##
+###########
+
+TRASHDIR="$XDG_DATA_HOME/Trash";
+SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/keyring/ssh";
+
+###############
+## Graphical ##
+###############
+
+BROWSER = "brave";
+
+###################################
+## Graphics Driver Configuration ##
+###################################
+
+LIBVA_DRIVER_NAME = "nvidia";
+GBM_BACKEND = "nvidia-drm";
+__GLX_VENDOR_LIBRARY_NAME = "nvidia";
+NVD_BACKEND = "direct";
+
+##########################
+## Cursor Configuration ##
+##########################
+
+XCURSOR_SIZE = "24";
+HYPRCURSOR_SIZE = "24";
+
+###########
+## Other ##
+###########
+
+QT_STYLE_OVERRIDE = "kvantum";
+
   # Hints electron apps to use Wayland
   NIXOS_OZONE_WL = "1";
 
