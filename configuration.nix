@@ -26,8 +26,24 @@
       initrd /initramfs-linux.img
     }
   '';
-  boot.supportedFilesystems = [ "ntfs" ]; # Enable kernel support for NTFS
+  boot.loader.grub.theme = pkgs.stdenv.mkDerivation {
+    pname = "distro-grub-themes-nixos";
+    version = "3.1";
+    src = pkgs.fetchFromGitHub {
+      owner = "AdisonCavani";
+      repo = "distro-grub-themes";
+      rev = "v3.1";
+      hash = "sha256-ZcoGbbOMDDwjLhsvs77C7G7vINQnprdfI37a9ccrmPs=";
+    };
+    nativeBuildInputs = [ pkgs.gnutar ];
+    installPhase = ''
+      mkdir -p $out
+      # Unpack the nested nixos.tar file into $out where GRUB expects theme.txt
+      tar -xf themes/nixos.tar -C $out
+    '';
+  };
 
+  boot.supportedFilesystems = [ "ntfs" ]; # Enable kernel support for NTFS
 
   boot.loader.efi.canTouchEfiVariables = true;
 
