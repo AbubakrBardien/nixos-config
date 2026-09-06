@@ -121,7 +121,27 @@
     shell = pkgs.zsh;
     home = "/home/abubakr";
     packages = with pkgs; [
-      ## For Neovim
+    # Neovim bundled with pre-compiled Tree-sitter parsers
+(neovim.override {
+  configure = {
+    customRC = ''
+      " Preserve Nix-provided plugins (like nvim-treesitter with all grammars) in runtimepath
+      let g:nix_rtp = &runtimepath
+
+      " Add user init.lua config path
+      let config_dir = expand('~/.config/nvim')
+      if isdirectory(config_dir)
+        let &runtimepath = config_dir . ',' . &runtimepath . ',' . g:nix_rtp . ',' . config_dir . '/after'
+        source ~/.config/nvim/init.lua
+      endif
+    '';
+    packages.myPlugins = {
+      start = [
+        pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+      ];
+    };
+  };
+})
       ripgrep # this or similar tool required by telescope.nvim
 
       # Language Servers
@@ -187,7 +207,6 @@
       mediainfo
       mpv
       nemo
-      neovim
       networkmanagerapplet
       noto-fonts-emoji-blob-bin
       nushell
@@ -251,6 +270,7 @@
     acpi
     alsa-utils
     gcc # or clang (needed for treesitter, and C/C++ user-projects in general)
+	tree-sitter
     inotify-tools
     #intel-ucode
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
