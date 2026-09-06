@@ -138,12 +138,13 @@
 	  stylua # Lua
 
       # Debug Adapters
-      (python3.withPackages (ps: [ ps.debugpy ])) # Python
       vscode-extensions.vadimcn.vscode-lldb.adapter # codelldb # C/C++
+	  # Python's debugger listed later in this file
 
       adapta-gtk-theme
       arc-theme
       awww
+      bat
       bat-extras.core
       brave
       brillo      
@@ -209,8 +210,11 @@
       sl
       starship
       
-      # Wrap python3 to expose the subliminal CLI binary:
-      (python3.withPackages (ps: [ ps.subliminal ]))
+	(python3.withPackages (ps: [
+	  ps.debugpy # Python Debugger, needed for Neovim
+	  ps.subliminal
+	  ps.argcomplete
+	]))
       
       surfraw
       tealdeer
@@ -230,9 +234,6 @@
     enable = true;
     xwayland.enable = true;
   };
-
-  # Allows downloaded binaries to run on NixOS (Needed for Mason)
-  programs.nix-ld.enable = true; 
 
   programs.steam.enable = true;
 
