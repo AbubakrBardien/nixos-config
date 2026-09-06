@@ -235,7 +235,12 @@
   programs.nix-ld.enable = true; 
 
   programs.steam.enable = true;
-  programs.zsh.enable = true;
+
+  programs.zsh = {
+    enable = true;
+    histFile = "$XDG_DATA_HOME/zsh/history";
+  };
+  
   programs.kdeconnect.enable = true;
   programs.obs-studio.enable = true;
 
@@ -307,7 +312,7 @@ xdg.portal = {
 };
 
 # Waylend environment variables (Crucial if you have dual GPUs or NVIDIA)
-environment.sessionVariables = {
+environment.sessionVariables = rec {
 
   ##########################
   ## XDG Base Directories ##
@@ -323,41 +328,47 @@ environment.sessionVariables = {
   #############################################
 
 ## Python Files
-IPYTHONDIR="$XDG_CONFIG_HOME/ipython";
-PYTHON_HISTORY="$XDG_STATE_HOME/python_history";
+IPYTHONDIR="${XDG_CONFIG_HOME}/ipython";
+PYTHON_HISTORY="${XDG_STATE_HOME}/python_history";
 
 ## Rust Files
-CARGO_HOME="$XDG_DATA_HOME/cargo";
-RUSTUP_HOME="$XDG_DATA_HOME/rustup";
-RUST_TOOLCHAINS="$RUSTUP_HOME/toolchains/stable-x86_64-unknown-linux-gnu/bin";
+CARGO_HOME="${XDG_DATA_HOME}/cargo";
+RUSTUP_HOME="${XDG_DATA_HOME}/rustup";
+RUST_TOOLCHAINS="${RUSTUP_HOME}/toolchains/stable-x86_64-unknown-linux-gnu/bin";
 
 ## Java Files
-GRADLE_USER_HOME="$XDG_DATA_HOME/gradle";
-_JAVA_OPTIONS="-Djavafx.cachedir=$XDG_CACHE_HOME/openjfx -Dswt.library.path=$XDG_CACHE_HOME/swt";
+GRADLE_USER_HOME="${XDG_DATA_HOME}/gradle";
+_JAVA_OPTIONS="-Djavafx.cachedir=${XDG_CACHE_HOME}/openjfx -Dswt.library.path=${XDG_CACHE_HOME}/swt";
 
 ## .NET Core Files
-DOTNET_CLI_HOME="$XDG_DATA_HOME/dotnet";
-NUGET_PACKAGES="$XDG_CACHE_HOME/NuGetPackages";
+DOTNET_CLI_HOME="${XDG_DATA_HOME}/dotnet";
+NUGET_PACKAGES="${XDG_CACHE_HOME}/NuGetPackages";
 
 ## Other Files
-HISTFILE="$XDG_DATA_HOME/zsh/history";
-CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv";
-GOPATH="$XDG_DATA_HOME/go";
-JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter";
-NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc";
-PARALLEL_HOME="$XDG_CONFIG_HOME/parallel";
-PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass";
-W3M_DIR="$XDG_STATE_HOME/w3m";
-GNUPGHOME="$XDG_DATA_HOME/gnupg";
-STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml";
-CAROOT="$XDG_DATA_HOME/certs";
-LINKS_CFG_ANON="$XDG_CONFIG_HOME/links";
+CUDA_CACHE_PATH="${XDG_CACHE_HOME}/nv";
+GOPATH="${XDG_DATA_HOME}/go";
+JUPYTER_CONFIG_DIR="${XDG_CONFIG_HOME}/jupyter";
+NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc";
+PARALLEL_HOME="${XDG_CONFIG_HOME}/parallel";
+PASSWORD_STORE_DIR="${XDG_DATA_HOME}/pass";
+W3M_DIR="${XDG_STATE_HOME}/w3m";
+GNUPGHOME="${XDG_DATA_HOME}/gnupg";
+STARSHIP_CONFIG="${XDG_CONFIG_HOME}/starship/starship.toml";
+CAROOT="${XDG_DATA_HOME}/certs";
+LINKS_CFG_ANON="${XDG_CONFIG_HOME}/links";
+
+#############
+## Z Shell ##
+#############
+
+ZDOTDIR = "$HOME/.config/zsh";
+ZINIT_HOME="${XDG_DATA_HOME}/zinit/zinit.git"; # Set the directory to store Zinit and Plugins
 
 ####################################
 ## My Other Environment Variables ##
 ####################################
 
-SCRIPTS="$XDG_DATA_HOME/my_scripts";
+SCRIPTS="${XDG_DATA_HOME}/my_scripts";
 
 ## Default CLI Programs
 EDITOR="nvim";
@@ -368,8 +379,8 @@ EDITOR="nvim";
 ## Other ##
 ###########
 
-TRASHDIR="$XDG_DATA_HOME/Trash";
-SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/keyring/ssh";
+TRASHDIR="${XDG_DATA_HOME}/Trash";
+SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR}/keyring/ssh";
 
 ###############
 ## Graphical ##
@@ -408,6 +419,15 @@ QT_STYLE_OVERRIDE = "kvantum";
   XDG_CURRENT_DESKTOP = "Hyprland";
   XDG_SESSION_TYPE = "wayland";
   XDG_SESSION_DESKTOP = "Hyprland";
+
+PATH= [ "${CARGO_HOME}/bin"
+	"${RUST_TOOLCHAINS}"
+	"$HOME/.local/bin"
+	"${SCRIPTS}"
+	"${SCRIPTS}/count_packages"
+	"${SCRIPTS}/hide_apps"
+	"${XDG_DATA_HOME}/npm/bin"
+	];
 };
 
 #hardware.nvidia.modesetting.enable = true;
@@ -492,6 +512,9 @@ systemd.user.services.polkit-gnome-authentication-agent-1 = {
   
   hardware.cpu.intel.updateMicrocode = true;
   hardware.brillo.enable = true;
+
+
+nix.settings."use-xdg-base-directories" = true;
 
 }
 
