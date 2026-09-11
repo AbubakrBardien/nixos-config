@@ -150,24 +150,27 @@
             ripgrep # this or similar tool required by telescope.nvim
 
             # Language Servers
-            lua-language-server # Lua
-            clang-tools # includes clangd and clang-format # C/C++
+
+            /*nixfmt:disable*/
+            lua-language-server  # Lua
+            clang-tools          # C/C++ # includes clangd and clang-format 
             bash-language-server # Bash
-            pyright # Python
-            nil # Nix
+            pyright              # Python
+            nil                  # Nix
 
             # Linters
             shellcheck # Bash
-            statix # Nix
+            statix     # Nix
 
             # Formatters
-            shfmt # Bash
+            shfmt  # Bash
             stylua # Lua
             nixfmt # Nix
 
             # Debug Adapters
-            vscode-extensions.vadimcn.vscode-lldb.adapter # codelldb # C/C++
+            vscode-extensions.vadimcn.vscode-lldb.adapter # C/C++ # codelldb
             # Python's debugger listed later in this file
+            /*nixfmt:enable*/
 
             adapta-gtk-theme
             arc-theme
