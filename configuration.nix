@@ -122,6 +122,7 @@
         extraGroups = [
             "wheel"
             "networkmanager"
+            "video"
         ]; # Enable ‘sudo’ for the user.
         shell = pkgs.zsh;
         home = "/home/abubakr";
@@ -178,7 +179,6 @@
             bat
             bat-extras.core
             brave
-            brillo
             #carapace # Needed for Nushell for auto-completions
             catt
             cava
