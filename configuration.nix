@@ -332,6 +332,8 @@
 
     fonts.packages = with pkgs; [
         corefonts # Times New Roman, Arial, Courier New, etc.
+        inter # GUI Font
+        nerd-fonts.jetbrains-mono # Terminal Font
     ];
 
     # Enable XDG Portals (Required for Hyprland to launch screens/workspaces properly)
@@ -433,6 +435,9 @@
 
         XCURSOR_SIZE = "24";
         HYPRCURSOR_SIZE = "24";
+
+        XCURSOR_THEME = "Adwaita";
+        HYPRCURSOR_THEME = "Adwaita";
 
         ###########
         ## Other ##
