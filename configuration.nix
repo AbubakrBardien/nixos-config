@@ -174,7 +174,6 @@
             /*nixfmt:enable*/
 
             adapta-gtk-theme
-            arc-theme
             awww
             bat
             bat-extras.core
@@ -209,8 +208,6 @@
             hyprshot
             jp2a
             kdePackages.breeze-gtk
-            qt6Packages.qtstyleplugin-kvantum
-            #libsForQt5.qtstyleplugin-kvantum
             ldns # check if this is still needed
             lolcat
             lsd
@@ -221,10 +218,8 @@
             networkmanagerapplet
             noto-fonts-emoji-blob-bin
             nushell
-            nwg-look
             obsidian
             onlyoffice-desktopeditors
-            papirus-icon-theme
             pavucontrol
             pcloud
             piper
@@ -275,6 +270,13 @@
     programs.kdeconnect.enable = true;
     programs.obs-studio.enable = true;
 
+    # Enable Qt module integration
+    qt = {
+        enable = true;
+        platformTheme = "gtk2";
+        style = "gtk2";
+    };
+
     # List packages installed in system profile.
     # You can use https://search.nixos.org/ to find more packages (and options).
     environment.systemPackages = with pkgs; [
@@ -288,6 +290,14 @@
         wget
         wireplumber
         stow
+        glib # Provides gsettings CLI
+        gsettings-desktop-schemas # Provides org.gnome.desktop.interface schemas
+        arc-theme # Provides Arc-Dark GTK theme
+        papirus-icon-theme # Provides Papirus-Dark icons
+
+        # Make sure the GTK style plugin for Qt is installed globally
+        libsForQt5.qtstyleplugins
+        qt6.qtwayland
 
         (makeDesktopItem {
             name = "cava";
@@ -344,6 +354,19 @@
             xdg-desktop-portal-hyprland
         ];
     };
+
+    # Enables automatic update of the desktop icon cache
+    gtk.iconCache.enable = true;
+
+    # Link GSettings schemas and desktop themes globally
+    environment.pathsToLink = [
+        "/share/gsettings-schemas"
+        "/share/icons"
+        "/share/themes"
+    ];
+
+    # Required for GTK/gsettings changes to persist and take effect on Wayland
+    programs.dconf.enable = true; # Enable dconf (GSettings backend)
 
     # Waylend environment variables (Crucial if you have dual GPUs or NVIDIA)
     environment.sessionVariables = rec {
@@ -443,7 +466,8 @@
         ## Other ##
         ###########
 
-        QT_STYLE_OVERRIDE = "kvantum";
+        QT_STYLE_OVERRIDE = "gtk2";
+        QT_QPA_PLATFORMTHEME = "gtk2";
 
         # Hints electron apps to use Wayland
         NIXOS_OZONE_WL = "1";
@@ -454,6 +478,8 @@
         XDG_CURRENT_DESKTOP = "Hyprland";
         XDG_SESSION_TYPE = "wayland";
         XDG_SESSION_DESKTOP = "Hyprland";
+
+        GSETTINGS_SCHEMA_DIR = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
 
         PATH = [
             "${CARGO_HOME}/bin"
