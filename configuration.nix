@@ -424,7 +424,7 @@
         ## My Other Environment Variables ##
         ####################################
 
-        SCRIPTS = "${XDG_DATA_HOME}/my_scripts";
+        SCRIPTS = "${XDG_DATA_HOME}/custom_scripts";
 
         ## Default CLI Programs
         EDITOR = "nvim";
