@@ -146,7 +146,16 @@ The rest of the setup is described in the [dotfiles repo's README](https://githu
 less ~/dotfiles/README.md
 ```
 
-### Return To Hyprland
+### Last Steps
+
+Commit the new `hardware-configuration.nix` file to the repo:
+
+```sh
+cd /etc/nixos
+git add hardware-configuration.nix
+git commit -m "Update hardware configuration file"
+git push
+```
 
 When the dotfiles are applied, switch back to Hyprland with Ctrl + Alt + F1. If you still can't use a keybinding to open a terminal window, log out and back in so Hyprland reloads its config.
 
