@@ -41,16 +41,16 @@ Run `cfdisk`:
 cfdisk $DISK
 ```
 
-If it asks for a label type, choose **gpt**. Delete any existing partitions, then create these in order, using the following method:
+If it asks for a label type, choose "gpt". Delete any existing partitions, then create these in order, using the following method:
 
-Select "Free space" --> **New** --> Enter the size --> Press "Enter" --> Navigate to **Type** --> Select the type from the list.
+Select "Free space" → "New" → Enter the size and press Enter → Navigate to "Type" → Select the type from the list.
 
-| # | Size | Type (use **Type**) | Purpose |
+| # | Size | Type | Purpose |
 |---|------|---------------------|---------|
 | 1 | 1G | EFI System | Boot (ESP) |
 | 2 | Rest of disk | Linux filesystem | Root |
 
-Once that's done, choose **Write**, type `yes`, then **Quit**.
+Once that's done, choose "Write", type `yes`, then "Quit".
 
 #### Format The Partitions
 
@@ -98,9 +98,7 @@ git clone https://github.com/AbubakrBardien/nixos-config.git /mnt/etc/nixos
 cp /tmp/hardware-configuration.nix /mnt/etc/nixos/
 ```
 
-Review `/mnt/etc/nixos/configuration.nix` and make sure it imports `./hardware-configuration.nix` and that any machine-specific values (hostname, username, bootloader, disk labels) match this machine.
-
-> If this repo tracks `hardware-configuration.nix`, the copy above will show up as a modification. Leave it for now and commit it after the first boot, once your git identity and credentials are set up.
+This repo tracks `hardware-configuration.nix`, so the copy above will show up as a modification. Leave it for now and commit it after the first boot, once your git identity and credentials are set up.
 
 ### Install
 
