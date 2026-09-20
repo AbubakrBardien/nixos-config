@@ -543,7 +543,7 @@
     swapDevices = [
         {
             device = "/swapfile";
-            size = 10 * 1024; # Size in MB (10GB = 10240)
+            size = 10 * 1024; # Size in MB (10GB = 10240MB)
         }
     ];
 
