@@ -122,7 +122,7 @@ reboot
 
 ## After The First Boot
 
-Log in as your user, then:
+Log in as your user, and then switch to a text console with **Ctrl + Alt + F2**. Log in as your user there and continue with the steps below.
 
 ### Make `/etc/nixos` usable as your user
 
@@ -139,6 +139,8 @@ The dotfiles repo tracks `~/.config/git/config` (identity and credential helper)
 ```sh
 git clone https://github.com/AbubakrBardien/dotfiles.git ~/dotfiles
 ```
+
+When the dotfiles are applied, switch back to Hyprland with **Ctrl + Alt + F1**. If you still can't use a keybinding to open a terminal window, log out and back in so Hyprland reloads its config.
 
 The repo is public, so git won't prompt you for a username and PAT, and no credentials are saved yet.
 The first push to a repo will prompt for your username and PAT instead.
