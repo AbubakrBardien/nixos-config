@@ -132,6 +132,30 @@ Log in as your user, and then switch to a text console with Ctrl + Alt + F2. Log
 sudo chown -R $USER:users /etc/nixos
 ```
 
+### Update The Hibernation Offset
+
+`configuration.nix` sets up hibernation with a swapfile. NixOS creates the swapfile on the first boot, and its location on the disk is different for every install, so the `resume_offset` kernel parameter has to be updated for this machine. (`boot.resumeDevice` uses the `nixos` label from the partitioning step, so it never needs changing.)
+
+Find the offset:
+
+```sh
+sudo filefrag -v /swapfile | awk '$1=="0:" {print substr($4, 1, length($4)-2)}'
+```
+
+Open `configuration.nix` and replace the number in `resume_offset=` with the value printed above:
+
+```sh
+vim /etc/nixos/configuration.nix
+```
+
+Then rebuild. Kernel parameters only apply on the next boot, so `boot` is enough:
+
+```sh
+sudo nixos-rebuild boot
+```
+
+Hibernation works after the next reboot. Test it with `systemctl hibernate`.
+
 ### Clone The Dotfiles Repo
 
 ```sh
@@ -152,8 +176,8 @@ Commit the new `hardware-configuration.nix` file to the repo:
 
 ```sh
 cd /etc/nixos
-git add hardware-configuration.nix
-git commit -m "Update hardware configuration file"
+git add *
+git commit -m "Update hardware configuration and hibernation offset"
 git push
 ```
 

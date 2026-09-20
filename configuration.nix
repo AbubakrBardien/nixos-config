@@ -11,6 +11,7 @@
     imports = [
         ./hardware-configuration.nix # Include the results of the hardware scan
         ./count-packages.nix
+        ./dual-boot.nix
     ];
 
     # Use the Grub boot loader.
@@ -18,17 +19,6 @@
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "nodev"; # "nodev" Tells Grub to install for EFI mode
     boot.loader.grub.efiSupport = true;
-    boot.loader.grub.useOSProber = true; # Automatically detects other OS's
-    boot.loader.grub.extraEntries = ''
-        menuentry "Arch Linux" {
-          insmod part_gpt
-          insmod fat
-          insmod ext2
-          set root=(hd0,gpt5)
-          linux /vmlinuz-linux root=/dev/nvme0n1p6 rw loglevel=4
-          initrd /initramfs-linux.img
-        }
-    '';
     boot.loader.grub.theme = pkgs.stdenv.mkDerivation {
         pname = "distro-grub-themes-nixos";
         version = "3.1";
@@ -546,9 +536,6 @@
             size = 10 * 1024; # Size in MB (10GB = 10240MB)
         }
     ];
-
-    boot.resumeDevice = "/dev/nvme0n1p7";
-    boot.kernelParams = [ "resume_offset=34816" ];
 
     # 1. Enable Polkit in system configuration
     security.polkit.enable = true;
