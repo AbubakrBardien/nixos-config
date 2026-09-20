@@ -2,11 +2,11 @@
 
 My NixOS system configuration. This repo covers the _system_ (packages, services, users, boot, etc.).
 
-User-level config files that live in `$HOME` are kept in a separate repo: [AbubakrBardien/dotfiles](https://github.com/AbubakrBardien/dotfiles).
+User-level config files that live in `$HOME` are stored in a separate repo: [AbubakrBardien/dotfiles](https://github.com/AbubakrBardien/dotfiles).
 
 | Repo | Purpose | Lives at |
 |------|---------|----------|
-| This repo | System configuration (`configuration.nix`) | `/etc/nixos` |
+| NixOS repo | System configuration (`configuration.nix`) | `/etc/nixos` |
 | Dotfiles repo | Config files in `$HOME` | `~/dotfiles` |
 
 ---
@@ -134,17 +134,21 @@ sudo chown -R $USER:users /etc/nixos
 
 ### Clone The Dotfiles Repo
 
-The dotfiles repo tracks `~/.config/git/config` (identity and credential helper), so cloning it also sets up git. The PAT is the one thing it can't contain: it lives in `~/.config/git/credentials` (not version controlled) and is saved automatically the first time git asks for it.
-
 ```sh
 git clone https://github.com/AbubakrBardien/dotfiles.git ~/dotfiles
 ```
 
-When the dotfiles are applied, switch back to Hyprland with Ctrl + Alt + F1. If you still can't use a keybinding to open a terminal window, log out and back in so Hyprland reloads its config.
+### Apply The Dotfiles
 
-The repo is public, so git won't prompt you for a username and PAT, and no credentials are saved yet.
-The first push to a repo will prompt for your username and PAT instead.
-Then follow the instructions in that repo's README to setup your `$HOME` configuration.
+The rest of the setup is described in the [dotfiles repo's README](https://github.com/AbubakrBardien/dotfiles). You can read it in the text console with:
+
+```sh
+less ~/dotfiles/README.md
+```
+
+### Return To Hyprland
+
+When the dotfiles are applied, switch back to Hyprland with Ctrl + Alt + F1. If you still can't use a keybinding to open a terminal window, log out and back in so Hyprland reloads its config.
 
 ---
 
