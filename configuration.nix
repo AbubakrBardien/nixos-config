@@ -297,7 +297,7 @@
             desktopName = "Cava";
             exec = "cava";
             terminal = true;
-            icon = "ghostty";
+            icon = "com.mitchellh.ghostty";
         })
 
         (makeDesktopItem {
@@ -305,7 +305,7 @@
             desktopName = "CBonsai";
             exec = "cbonsai -li";
             terminal = true;
-            icon = "ghostty";
+            icon = "com.mitchellh.ghostty";
         })
 
         (makeDesktopItem {
@@ -313,7 +313,7 @@
             desktopName = "CMatrix";
             exec = "cmatrix -b";
             terminal = true;
-            icon = "ghostty";
+            icon = "com.mitchellh.ghostty";
         })
 
         (makeDesktopItem {
@@ -321,7 +321,7 @@
             desktopName = "GoTop";
             exec = "gotop";
             terminal = true;
-            icon = "ghostty";
+            icon = "com.mitchellh.ghostty";
         })
 
         (makeDesktopItem {
@@ -329,7 +329,7 @@
             desktopName = "Pipes";
             exec = "pipes.sh";
             terminal = true;
-            icon = "ghostty";
+            icon = "com.mitchellh.ghostty";
         })
     ];
 
