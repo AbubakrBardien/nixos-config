@@ -12,6 +12,4 @@
           initrd /initramfs-linux.img
         }
     '';
-    boot.resumeDevice = "/dev/disk/by-label/nixos";
-    boot.kernelParams = [ "resume_offset=34816" ];
 }

@@ -36,6 +36,9 @@
         '';
     };
 
+    boot.resumeDevice = "/dev/disk/by-label/nixos";
+    boot.kernelParams = [ "resume_offset=34816" ];
+
     boot.supportedFilesystems = [ "ntfs" ]; # Enable kernel support for NTFS
 
     boot.loader.efi.canTouchEfiVariables = true;
