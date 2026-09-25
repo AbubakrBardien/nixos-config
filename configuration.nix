@@ -68,6 +68,7 @@
 
     services.dunst.enable = true;
     services.udisks2.enable = true; # udiskie
+    services.ratbagd.enable = true; # Configuration library for gaming mice
 
     # services.displayManager.sddm = {
     #   enable = true;
@@ -214,7 +215,7 @@
             onlyoffice-desktopeditors
             pavucontrol
             pcloud
-            piper
+            piper # GTK frontend for ratbagd
             pipes
             proton-vpn
             protonup-qt
