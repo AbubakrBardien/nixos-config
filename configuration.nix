@@ -213,6 +213,7 @@
             nushell
             obsidian
             onlyoffice-desktopeditors
+            ppsspp
             pavucontrol
             pcloud
             piper # GTK frontend for ratbagd
@@ -239,11 +240,13 @@
             thunderbird
             timg
             tokei
+            trash-cli
             tree
             waybar
             wlr-randr # Keep if you switch away from hyprland
             wofi
             xdg-ninja
+            zathura
         ];
     };
 
