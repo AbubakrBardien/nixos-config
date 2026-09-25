@@ -181,7 +181,6 @@
             deno # check if this is still needed
             duf
             dust
-            #exodus # use PWA
             fastfetch
             fd
             ffsubsync # check if this is still needed
@@ -240,7 +239,6 @@
             timg
             tokei
             tree
-            vesktop
             waybar
             wlr-randr # Keep if you switch away from hyprland
             wofi
