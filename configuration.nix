@@ -7,6 +7,13 @@
     pkgs,
     ...
 }:
+
+let
+    # Custom xdg-open wrapper calling handlr
+    custom-xdg-open = pkgs.writeShellScriptBin "xdg-open" ''
+        exec ${pkgs.handlr}/bin/handlr open "$@"
+    '';
+in
 {
     imports = [
         ./hardware-configuration.nix # Include the results of the hardware scan
@@ -193,7 +200,6 @@
             gotop
             gping
             gthumb
-            handlr-regex
             htop
             hyperfine
             hypridle # consider removing if switching away from Hyprland
@@ -293,6 +299,9 @@
         # Make sure the GTK style plugin for Qt is installed globally
         libsForQt5.qtstyleplugins
         qt6.qtwayland
+
+        (lib.hiPrio custom-xdg-open) # Put custom-xdg-open earlier in PATH than standard desktop utils
+        handlr-regex
 
         (makeDesktopItem {
             name = "cava";
