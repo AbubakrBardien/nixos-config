@@ -205,3 +205,4 @@ Useful variations:
 | `sudo nixos-rebuild boot` | Apply on next boot only |
 | `sudo nixos-rebuild switch --rollback` | Go back to the previous generation |
 | `sudo nix-collect-garbage -d` | Delete old generations and free disk space |
+| `nixos-rebuild list-generations` | List NixOS generations |
