@@ -44,7 +44,18 @@ in
     };
 
     boot.resumeDevice = "/dev/disk/by-label/nixos";
-    boot.kernelParams = [ "resume_offset=34816" ];
+    boot.kernelParams = [
+        "resume_offset=34816"
+    ]
+    # only add the NVMe workaround when the machine actually uses NVMe
+    ++ lib.optional (builtins.elem "nvme" config.boot.initrd.availableKernelModules) "nvme_core.default_ps_max_latency_us=0";
+
+    systemd.sleep.settings.Sleep = {
+        AllowSuspendThenHibernate = true;
+        HibernateDelaySec = 300; # hibernate after 5 min
+    };
+
+    services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
 
     boot.supportedFilesystems = [ "ntfs" ]; # Enable kernel support for NTFS
 
