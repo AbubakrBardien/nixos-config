@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, globals, ... }:
 
 let
     systemPkgCount = builtins.toString (builtins.length config.environment.systemPackages);
-    userPkgCount = builtins.toString (builtins.length config.users.users.abubakr.packages);
+    userPkgCount = builtins.toString (builtins.length config.users.users.${globals.username}.packages);
 in
 {
     system.activationScripts.pkgCount.text = ''

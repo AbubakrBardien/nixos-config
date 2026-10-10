@@ -103,13 +103,21 @@ sed -i '/dual-boot.nix/d' /mnt/etc/nixos/configuration.nix
 
 This repo tracks `hardware-configuration.nix`, so the copy above will show up as a modification. Leave it for now and commit it after the first boot, once your git identity and credentials are set up.
 
+### Set Your Username
+
+Set your username in `global-variables.nix`:
+
+```sh
+vim /mnt/etc/nixos/global-variables.nix
+```
+
 ### Install
 
 ```sh
 nixos-install
 ```
 
-`nixos-install` prompts for the _root_ password at the end. Then set a normal user password before rebooting:
+`nixos-install` prompts for the _root_ password at the end. Then set a normal user password before rebooting, using the username you set in `global-variables.nix`:
 
 ```sh
 nixos-enter --root /mnt -c 'passwd <username>'
@@ -137,7 +145,7 @@ sudo chown -R $USER:users /etc/nixos
 
 ### Update The Hibernation Offset
 
-`configuration.nix` sets up hibernation with a swapfile. NixOS creates the swapfile on the first boot, and its location on the disk is different for every install, so the `resume_offset` kernel parameter has to be updated for this machine. (`boot.resumeDevice` uses the `nixos` label from the partitioning step, so it never needs changing.)
+`modules/hibernate.nix` sets up hibernation with a swapfile. NixOS creates the swapfile on the first boot, and its location on the disk is different for every install, so the `resume_offset` kernel parameter has to be updated for this machine. (`boot.resumeDevice` uses the `nixos` label from the partitioning step, so it never needs changing.)
 
 Find the offset:
 
@@ -145,10 +153,10 @@ Find the offset:
 sudo filefrag -v /swapfile | awk '$1=="0:" {print substr($4, 1, length($4)-2)}'
 ```
 
-Open `configuration.nix` and replace the number in `resume_offset=` with the value printed above:
+Open `modules/hibernate.nix` and replace the number in `resume_offset=` with the value printed above:
 
 ```sh
-vim /etc/nixos/configuration.nix
+vim /etc/nixos/modules/hibernate.nix
 ```
 
 Then rebuild. Kernel parameters only apply on the next boot, so `boot` is enough:
@@ -179,7 +187,7 @@ Commit the new `hardware-configuration.nix` file to the repo:
 
 ```sh
 cd /etc/nixos
-git add *
+git add -A
 git commit -m "Update hardware configuration and hibernation offset"
 git push
 ```
