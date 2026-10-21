@@ -51,6 +51,10 @@ in
         pkgs.wlr-randr # Keep if you switch away from hyprland
         pkgs.xdg-ninja
         # pkgs.carapace # Needed for Nushell for auto-completions
+        (pkgs.python3.withPackages (ps: [
+            ps.subliminal
+            ps.argcomplete
+        ]))
 
         # Terminal Apps, with Desktop Entries generated below
         pkgs.cava

@@ -1,4 +1,5 @@
 # Neovim and the tooling it relies on
+# Global Dev Tools
 { pkgs, globals, ... }:
 {
     environment.sessionVariables.EDITOR = "nvim";
@@ -26,16 +27,13 @@
             };
         })
         pkgs.ripgrep # this or similar tool required by telescope.nvim
-        pkgs.gcc # or clang (needed for treesitter, and C/C++ user-projects in general)
         pkgs.tree-sitter
 
 		/*nixfmt:disable*/
 
         # Language Servers
         pkgs.lua-language-server  # Lua
-        pkgs.clang-tools          # C/C++ # includes clangd and clang-format 
         pkgs.bash-language-server # Bash
-        pkgs.pyright              # Python
         pkgs.nil                  # Nix
 
         # Linters
@@ -51,13 +49,5 @@
 
         # Debug Adapters
         pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter # C/C++ (codelldb)
-
-        # Python: debugpy is the Neovim debug adapter; the rest are for general use.
-        # Kept as ONE environment so only one `python3` ends up on PATH.
-        (pkgs.python3.withPackages (ps: [
-            ps.debugpy
-            ps.subliminal
-            ps.argcomplete
-        ]))
     ];
 }
