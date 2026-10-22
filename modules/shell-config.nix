@@ -1,8 +1,14 @@
 { pkgs, globals, ... }:
 {
-    programs.zsh = {
-        enable = true;
-        histFile = "${globals.xdg.dataHome}/zsh/history";
+    programs = {
+        zsh = {
+            enable = true;
+            histFile = "${globals.xdg.dataHome}/zsh/history";
+        };
+        direnv = {
+            enable = true;
+            nix-direnv.enable = true; # Enables caching so nix-shell loads instantly
+        };
     };
 
     environment.sessionVariables = {

@@ -15,7 +15,7 @@
         ./modules/login-manager.nix
         ./modules/networking.nix
         ./modules/peripherals.nix
-        ./modules/shell.nix
+        ./modules/shell-config.nix
         ./modules/theming.nix
         ./modules/users.nix
         ./modules/wayland-compositor.nix
