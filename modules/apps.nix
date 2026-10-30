@@ -29,7 +29,6 @@ in
 		pkgs.proton-vpn    # VPN
 		pkgs.qalculate-gtk # Calculator
 		pkgs.qbittorrent   # BitTorrent Client
-		pkgs.thunderbird   # Email Client
 		pkgs.zathura       # PDF Viewer
 	    pkgs.obsidian      # Note Taking App
         pkgs.brave         # Browser
