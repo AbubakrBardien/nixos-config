@@ -20,7 +20,6 @@ in
     ];
 
     users.users.${globals.username}.packages = [
-        pkgs.acpi # Needed in my battery pop-up script
         pkgs.awww # Wallpaper Setter
         pkgs.bat # better "cat" display
         pkgs.bat-extras.core

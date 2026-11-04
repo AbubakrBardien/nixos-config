@@ -96,10 +96,17 @@ Replace the generated `/mnt/etc/nixos` with this repo, then put the hardware con
 rm -r /mnt/etc/nixos
 git clone https://github.com/AbubakrBardien/nixos-config.git /mnt/etc/nixos
 cp /tmp/hardware-configuration.nix /mnt/etc/nixos/
-sed -i '/dual-boot.nix/d' /mnt/etc/nixos/configuration.nix
+sed -i '/dual-boot\.nix/d' /mnt/etc/nixos/configuration.nix
 ```
 
 > `configuration.nix` imports `dual-boot.nix`, which holds settings for the author's dual-boot machine (an Arch GRUB entry). The last command removes that import for a clean, single-OS install.
+
+If you don't intend to use the Dotfiles repo mentioned later in this README, also run these commands to remove the config modules that depend on it:
+
+```sh
+sed -i '/battery-popup-service\.nix/d' /mnt/etc/nixos/configuration.nix
+sed -i '/count-packages\.nix/d' /mnt/etc/nixos/configuration.nix
+```
 
 This repo tracks `hardware-configuration.nix`, so the copy above will show up as a modification. Leave it for now and commit it after the first boot, once your git identity and credentials are set up.
 

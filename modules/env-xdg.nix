@@ -6,7 +6,6 @@ let
     cargoHome = "${globals.xdg.dataHome}/cargo";
     rustupHome = "${globals.xdg.dataHome}/rustup";
     rustToolchains = "${rustupHome}/toolchains/stable-x86_64-unknown-linux-gnu/bin";
-    scripts = "${globals.xdg.dataHome}/custom_scripts";
 in
 {
     nix.settings."use-xdg-base-directories" = true;
@@ -60,7 +59,7 @@ in
         ## Other ##
         ###########
 
-        SCRIPTS = "${scripts}";
+        SCRIPTS = "${globals.scripts}";
         TRASHDIR = "${globals.xdg.dataHome}/Trash";
         SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR}/keyring/ssh";
 
@@ -68,9 +67,9 @@ in
             "${cargoHome}/bin"
             "${rustToolchains}"
             "$HOME/.local/bin"
-            "${scripts}"
-            "${scripts}/count_packages"
-            "${scripts}/hide_apps"
+            "${globals.scripts}"
+            "${globals.scripts}/count_packages"
+            "${globals.scripts}/hide_apps"
             "${globals.xdg.dataHome}/npm/bin"
         ];
     };

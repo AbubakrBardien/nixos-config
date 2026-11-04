@@ -19,6 +19,7 @@
         ./modules/theming.nix
         ./modules/users.nix
         ./modules/wayland-compositor.nix
+        ./modules/extras/battery-popup-service.nix
         ./modules/extras/count-packages.nix
         ./modules/extras/dual-boot.nix
     ];
