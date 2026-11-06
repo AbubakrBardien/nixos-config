@@ -53,6 +53,7 @@ in
         PASSWORD_STORE_DIR =    "${globals.xdg.dataHome}/pass";
         CUDA_CACHE_PATH =       "${globals.xdg.cacheHome}/nv";
         W3M_DIR =               "${globals.xdg.stateHome}/w3m";
+        PULSE_COOKIE =          "${globals.xdg.configHome}/pulse/cookie";
         /*nixfmt:enable*/
 
         ###########
