@@ -26,6 +26,7 @@ in
 
         ## Python Files
         IPYTHONDIR = "${globals.xdg.configHome}/ipython";
+        JUPYTER_CONFIG_DIR = "${globals.xdg.configHome}/jupyter";
         PYTHON_HISTORY = "${globals.xdg.stateHome}/python_history";
 
         ## Rust Files
@@ -43,17 +44,16 @@ in
 
         ## Other Files
         /*nixfmt:disable*/
-        JUPYTER_CONFIG_DIR =    "${globals.xdg.configHome}/jupyter";
+        CAROOT =                "${globals.xdg.dataHome}/certs";
+        CUDA_CACHE_PATH =       "${globals.xdg.cacheHome}/nv";
+        GNUPGHOME =             "${globals.xdg.dataHome}/gnupg";
+        GOPATH =                "${globals.xdg.dataHome}/go";
         LINKS_CFG_ANON =        "${globals.xdg.configHome}/links";
         NPM_CONFIG_USERCONFIG = "${globals.xdg.configHome}/npm/npmrc";
         PARALLEL_HOME =         "${globals.xdg.configHome}/parallel";
-        CAROOT =                "${globals.xdg.dataHome}/certs";
-        GNUPGHOME =             "${globals.xdg.dataHome}/gnupg";
-        GOPATH =                "${globals.xdg.dataHome}/go";
         PASSWORD_STORE_DIR =    "${globals.xdg.dataHome}/pass";
-        CUDA_CACHE_PATH =       "${globals.xdg.cacheHome}/nv";
-        W3M_DIR =               "${globals.xdg.stateHome}/w3m";
         PULSE_COOKIE =          "${globals.xdg.configHome}/pulse/cookie";
+        W3M_DIR =               "${globals.xdg.stateHome}/w3m";
         /*nixfmt:enable*/
 
         ###########
@@ -61,8 +61,8 @@ in
         ###########
 
         SCRIPTS = "${globals.scripts}";
-        TRASHDIR = "${globals.xdg.dataHome}/Trash";
         SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR}/keyring/ssh";
+        TRASHDIR = "${globals.xdg.dataHome}/Trash";
 
         PATH = [
             "${cargoHome}/bin"
